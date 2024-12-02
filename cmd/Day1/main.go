@@ -3,20 +3,11 @@ package main
 import (
     "bufio"
     "fmt"
-    "os"
     "sort"
     "strconv"
     "strings"
+    "aoc2024/utils"
 )
-
-func scan() *bufio.Scanner {
-    file, err := os.Open("./input.txt")
-    if err != nil {
-        panic(err)
-    }
-    scanner := bufio.NewScanner(file)
-    return scanner
-}
 
 func part1(scanner *bufio.Scanner) int {
     var l1, l2 []int
@@ -72,9 +63,17 @@ func part2(scanner *bufio.Scanner) int {
 }
 
 func main() {
-    scanner1 := scan()
-    fmt.Printf("Result Part 1: %d\n", part1(scanner1))
+    scanner, cleanup, err := utils.OpenFileScanner("input.txt")
+    if err != nil {
+        panic(err)
+    }
+    defer cleanup()
+    fmt.Printf("Result Part 1: %d\n", part1(scanner))
     
-    scanner2 := scan()
-    fmt.Printf("Result Part 2: %d\n", part2(scanner2))
+    scanner, cleanup, err = utils.OpenFileScanner("input.txt")
+    if err != nil {
+        panic(err)
+    }
+    defer cleanup()
+    fmt.Printf("Result Part 2: %d\n", part2(scanner))
 }
