@@ -3,19 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
+    "aoc2024/utils"
 )
 
-func scan() *bufio.Scanner {
-	file, err := os.Open("./input.txt")
-	if err != nil {
-		panic(err)
-	}
-	scanner := bufio.NewScanner(file)
-	return scanner
-}
 
 func isSafe(levels []int) bool {
 	if len(levels) < 2 {
@@ -107,9 +99,17 @@ func part2(scanner *bufio.Scanner) int {
 }
 
 func main() {
-	scanner1 := scan()
-	fmt.Println(part1(scanner1))
-
-	scanner2 := scan()
-	fmt.Println(part2(scanner2))
+    scanner, cleanup, err := utils.OpenFileScanner("input.txt")
+    if err != nil {
+        panic(err)
+    }
+    defer cleanup()
+    fmt.Printf("Result Part 1: %d\n", part1(scanner))
+    
+    scanner, cleanup, err = utils.OpenFileScanner("input.txt")
+    if err != nil {
+        panic(err)
+    }
+    defer cleanup()
+    fmt.Printf("Result Part 2: %d\n", part2(scanner))
 }
